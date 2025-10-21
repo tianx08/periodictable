@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>元素周期表</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- 配置Tailwind自定义颜色和字体 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            // 新的颜色方案，基于参考图
+            'alkali': '#FFCCCC',       // 碱金属
+            'alkaline': '#FFE0B2',     // 碱土金属
+            'transition': '#C8E6C9',   // 过渡元素
+            'main-group': '#B3E5FC',   // 主族金属
+            'metalloid': '#E1BEE7',    // 类金属
+            'nonmetal': '#FFF9C4',     // 非金属
+            'halogen': '#D1C4E9',      // 卤素
+            'noble': '#FFCDD2',        // 稀有气体
+            'lanthanide': '#FFE0B2',   // 镧系
+            'actinide': '#FFCCBC',     // 锕系
+            'border': '#AAAAAA',
+            'radioactive': '#FF0000',
+            'header': '#F5F5F5',
+            // 图例颜色
+            'legend-alkali': '#FF9999',
+            'legend-alkaline': '#FFCC80',
+            'legend-transition': '#81C784',
+            'legend-main': '#4FC3F7',
+            'legend-metalloid': '#BA68C8',
+            'legend-nonmetal': '#FFEE58',
+            'legend-halogen': '#9575CD',
+            'legend-noble': '#EF5350',
+          },
+          fontFamily: {
+            sans: ['SimSun', 'serif'],
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .element-cell {
+        @apply border border-border text-center p-0.5 text-xs sm:text-sm w-16 min-w-[4rem];
+      }
+      .group-header {
+        @apply border border-border text-center p-0.5 text-xs font-bold;
+      }
+      .period-header {
+        @apply border border-border bg-header text-center p-0.5 text-xs font-bold;
+      }
+      .legend-item {
+        @apply flex items-center gap-2 mb-1;
+      }
+      .legend-color {
+        @apply w-4 h-4 border border-border;
+      }
+      .radioactive {
+        @apply text-radioactive;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 p-2 sm:p-4">
+  <div class="max-w-7xl mx-auto bg-white p-4 sm:p-6 shadow-lg rounded-lg overflow-x-auto">
+    <!-- 标题 -->
+    <div class="text-center mb-4">
+      <h1 class="text-2xl sm:text-3xl font-bold">元素周期表</h1>
+    </div>
+    
+    <!-- 图例说明 -->
+    <div class="flex flex-wrap gap-x-6 gap-y-1 mb-3 text-xs sm:text-sm">
+      <div class="legend-item">
+        <div class="legend-color bg-legend-alkali"></div>
+        <span>碱金属</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color bg-legend-alkaline"></div>
+        <span>碱土金属</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color bg-legend-transition"></div>
+        <span>过渡元素</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color bg-legend-main"></div>
+        <span>主族金属</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color bg-legend-metalloid"></div>
+        <span>类金属</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color bg-legend-nonmetal"></div>
+        <span>非金属</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color bg-legend-halogen"></div>
+        <span>卤素</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color bg-legend-noble"></div>
+        <span>稀有气体</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color bg-lanthanide"></div>
+        <span>镧系</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color bg-actinide"></div>
+        <span>锕系</span>
+      </div>
+      <div class="legend-item">
+        <span class="radioactive">红色文字：放射性元素</span>
+      </div>
+      <div class="legend-item">
+        <span>（）：人造元素</span>
+      </div>
+    </div>
+    
+    <!-- 主周期表 -->
+    <table class="border-collapse mb-4">
+      <!-- 第一周期 -->
+      <tr>
+        <td class="period-header" rowspan="2">周期</td>
+        <td class="group-header bg-legend-alkali">IA</td>
+        <td class="group-header" colspan="10"></td>
+        <td class="group-header bg-legend-alkaline">IIA</td>
+        <td class="group-header bg-legend-main">IIIA</td>
+        <td class="group-header bg-legend-main">IVA</td>
+        <td class="group-header bg-legend-main">VA</td>
+        <td class="group-header bg-legend-nonmetal">VIA</td>
+        <td class="group-header bg-legend-halogen">VIIA</td>
+        <td class="group-header bg-legend-noble">0</td>
+        <td class="period-header" rowspan="2">电子层</td>
+        <td class="period-header" rowspan="2">电子数</td>
+      </tr>
+      <tr>
+        <!-- 1 H -->
+        <td class="element-cell bg-nonmetal">
+          <div class="text-right">1</div>
+          <div class="font-bold">H</div>
+          <div>氢</div>
+          <div class="text-xs">1.008</div>
+        </td>
+        <!-- 空白 -->
+        <td class="border border-border" colspan="10"></td>
+        <!-- 2 He -->
+        <td class="element-cell bg-noble">
+          <div class="text-right">2</div>
+          <div class="font-bold">He</div>
+          <div>氦</div>
+          <div class="text-xs">4.003</div>
+        </td>
+        <td class="element-cell" colspan="4"></td>
+        <td class="text-center text-xs p-1">K</td>
+        <td class="text-center text-xs p-1">2</td>
+      </tr>
+      
+      <!-- 第二周期 -->
+      <tr>
+        <td class="period-header">2</td>
+        <!-- 3 Li -->
+        <td class="element-cell bg-alkali">
+          <div class="text-right">3</div>
+          <div class="font-bold">Li</div>
+          <div>锂</div>
+          <div class="text-xs">6.941</div>
+        </td>
+        <!-- 空白 -->
+        <td class="border border-border" colspan="10"></td>
+        <!-- 4 Be -->
+        <td class="element-cell bg-alkaline">
+          <div class="text-right">4</div>
+          <div class="font-bold">Be</div>
+          <div>铍</div>
+          <div class="text-xs">9.012</div>
+        </td>
+        <!-- 5 B -->
+        <td class="element-cell bg-metalloid">
+          <div class="text-right">5</div>
+          <div class="font-bold">B</div>
+          <div>硼</div>
+          <div class="text-xs">10.81</div>
+        </td>
+        <!-- 6 C -->
+        <td class="element-cell bg-nonmetal">
+          <div class="text-right">6</div>
+          <div class="font-bold">C</div>
+          <div>碳</div>
+          <div class="text-xs">12.01</div>
+        </td>
+        <!-- 7 N -->
+        <td class="element-cell bg-nonmetal">
+          <div class="text-right">7</div>
+          <div class="font-bold">N</div>
+          <div>氮</div>
+          <div class="text-xs">14.01</div>
+        </td>
+        <!-- 8 O -->
+        <td class="element-cell bg-nonmetal">
+          <div class="text-right">8</div>
+          <div class="font-bold">O</div>
+          <div>氧</div>
+          <div class="text-xs">16.00</div>
+        </td>
+        <!-- 9 F -->
+        <td class="element-cell bg-halogen">
+          <div class="text-right">9</div>
+          <div class="font-bold">F</div>
+          <div>氟</div>
+          <div class="text-xs">19.00</div>
+        </td>
+        <!-- 10 Ne -->
+        <td class="element-cell bg-noble">
+          <div class="text-right">10</div>
+          <div class="font-bold">Ne</div>
+          <div>氖</div>
+          <div class="text-xs">20.18</div>
+        </td>
+        <td class="text-center text-xs p-1">L</td>
+        <td class="text-center text-xs p-1">8</td>
+      </tr>
+      
+      <!-- 第三周期 -->
+      <tr>
+        <td class="period-header">3</td>
+        <!-- 11 Na -->
+        <td class="element-cell bg-alkali">
+          <div class="text-right">11</div>
+          <div class="font-bold">Na</div>
+          <div>钠</div>
+          <div class="text-xs">22.99</div>
+        </td>
+        <!-- 12 Mg -->
+        <td class="element-cell bg-alkaline">
+          <div class="text-right">12</div>
+          <div class="font-bold">Mg</div>
+          <div>镁</div>
+          <div class="text-xs">24.31</div>
+        </td>
+        <!-- 空白 -->
+        <td class="border border-border" colspan="10"></td>
+        <!-- 13 Al -->
+        <td class="element-cell bg-main-group">
+          <div class="text-right">13</div>
+          <div class="font-bold">Al</div>
+          <div>铝</div>
+          <div class="text-xs">26.98</div>
+        </td>
+        <!-- 14 Si -->
+        <td class="element-cell bg-metalloid">
+          <div class="text-right">14</div>
+          <div class="font-bold">Si</div>
+          <div>硅</div>
+          <div class="text-xs">28.09</div>
+        </td>
+        <!-- 15 P -->
+        <td class="element-cell bg-nonmetal">
+          <div class="text-right">15</div>
+          <div class="font-bold">P</div>
+          <div>磷</div>
+          <div class="text-xs">30.97</div>
+        </td>
+        <!-- 16 S -->
+        <td class="element-cell bg-nonmetal">
+          <div class="text-right">16</div>
+          <div class="font-bold">S</div>
+          <div>硫</div>
+          <div class="text-xs">32.06</div>
+        </td>
+        <!-- 17 Cl -->
+        <td class="element-cell bg-halogen">
+          <div class="text-right">17</div>
+          <div class="font-bold">Cl</div>
+          <div>氯</div>
+          <div class="text-xs">35.45</div>
+        </td>
+        <!-- 18 Ar -->
+        <td class="element-cell bg-noble">
+          <div class="text-right">18</div>
+          <div class="font-bold">Ar</div>
+          <div>氩</div>
+          <div class="text-xs">39.95</div>
+        </td>
+        <td class="text-center text-xs p-1">M</td>
+        <td class="text-center text-xs p-1">8</td>
+      </tr>
+      
+      <!-- 第四周期 - 过渡元素上方的族标题 -->
+      <tr>
+        <td class="period-header">4</td>
+        <td class="group-header bg-legend-alkali">IA</td>
+        <td class="group-header bg-legend-alkaline">IIA</td>
+        <td class="group-header bg-legend-transition">IIIB</td>
+        <td class="group-header bg-legend-transition">IVB</td>
+        <td class="group-header bg-legend-transition">VB</td>
+        <td class="group-header bg-legend-transition">VIB</td>
+        <td class="group-header bg-legend-transition">VIIB</td>
+        <td class="group-header bg-legend-transition" colspan="3">VIII</td>
+        <td class="group-header bg-legend-transition">IB</td>
+        <td class="group-header bg-legend-transition">IIB</td>
+        <td class="group-header bg-legend-main">IIIA</td>
+        <td class="group-header bg-legend-main">IVA</td>
+        <td class="group-header bg-legend-main">VA</td>
+        <td class="group-header bg-legend-nonmetal">VIA</td>
+        <td class="group-header bg-legend-halogen">VIIA</td>
+        <td class="group-header bg-legend-noble">0</td>
+        <td class="text-center text-xs p-1">N</td>
+        <td class="text-center text-xs p-1">18</td>
+      </tr>
+      
+      <!-- 第四周期 - 元素 -->
+      <tr>
+        <td class="period-header"></td>
+        <!-- 19 K -->
+        <td class="element-cell bg-alkali">
+          <div class="text-right">19</div>
+          <div class="font-bold">K</div>
+          <div>钾</div>
+          <div class="text-xs">39.10</div>
+        </td>
+        <!-- 20 Ca -->
+        <td class="element-cell bg-alkaline">
+          <div class="text-right">20</div>
+          <div class="font-bold">Ca</div>
+          <div>钙</div>
+          <div class="text-xs">40.08</div>
+        </td>
+        <!-- 21 Sc -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">21</div>
+          <div class="font-bold">Sc</div>
+          <div>钪</div>
+          <div class="text-xs">44.96</div>
+        </td>
+        <!-- 22 Ti -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">22</div>
+          <div class="font-bold">Ti</div>
+          <div>钛</div>
+          <div class="text-xs">47.87</div>
+        </td>
+        <!-- 23 V -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">23</div>
+          <div class="font-bold">V</div>
+          <div>钒</div>
+          <div class="text-xs">50.94</div>
+        </td>
+        <!-- 24 Cr -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">24</div>
+          <div class="font-bold">Cr</div>
+          <div>铬</div>
+          <div class="text-xs">52.00</div>
+        </td>
+        <!-- 25 Mn -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">25</div>
+          <div class="font-bold">Mn</div>
+          <div>锰</div>
+          <div class="text-xs">54.94</div>
+        </td>
+        <!-- 26 Fe -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">26</div>
+          <div class="font-bold">Fe</div>
+          <div>铁</div>
+          <div class="text-xs">55.85</div>
+        </td>
+        <!-- 27 Co -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">27</div>
+          <div class="font-bold">Co</div>
+          <div>钴</div>
+          <div class="text-xs">58.93</div>
+        </td>
+        <!-- 28 Ni -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">28</div>
+          <div class="font-bold">Ni</div>
+          <div>镍</div>
+          <div class="text-xs">58.69</div>
+        </td>
+        <!-- 29 Cu -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">29</div>
+          <div class="font-bold">Cu</div>
+          <div>铜</div>
+          <div class="text-xs">63.55</div>
+        </td>
+        <!-- 30 Zn -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">30</div>
+          <div class="font-bold">Zn</div>
+          <div>锌</div>
+          <div class="text-xs">65.41</div>
+        </td>
+        <!-- 31 Ga -->
+        <td class="element-cell bg-main-group">
+          <div class="text-right">31</div>
+          <div class="font-bold">Ga</div>
+          <div>镓</div>
+          <div class="text-xs">69.72</div>
+        </td>
+        <!-- 32 Ge -->
+        <td class="element-cell bg-metalloid">
+          <div class="text-right">32</div>
+          <div class="font-bold">Ge</div>
+          <div>锗</div>
+          <div class="text-xs">72.64</div>
+        </td>
+        <!-- 33 As -->
+        <td class="element-cell bg-metalloid">
+          <div class="text-right">33</div>
+          <div class="font-bold">As</div>
+          <div>砷</div>
+          <div class="text-xs">74.92</div>
+        </td>
+        <!-- 34 Se -->
+        <td class="element-cell bg-nonmetal">
+          <div class="text-right">34</div>
+          <div class="font-bold">Se</div>
+          <div>硒</div>
+          <div class="text-xs">78.96</div>
+        </td>
+        <!-- 35 Br -->
+        <td class="element-cell bg-halogen">
+          <div class="text-right">35</div>
+          <div class="font-bold">Br</div>
+          <div>溴</div>
+          <div class="text-xs">79.90</div>
+        </td>
+        <!-- 36 Kr -->
+        <td class="element-cell bg-noble">
+          <div class="text-right">36</div>
+          <div class="font-bold">Kr</div>
+          <div>氪</div>
+          <div class="text-xs">83.80</div>
+        </td>
+        <td class="text-center text-xs p-1">M</td>
+        <td class="text-center text-xs p-1">8</td>
+      </tr>
+      
+      <!-- 第五周期 - 族标题 -->
+      <tr>
+        <td class="period-header">5</td>
+        <td class="group-header bg-legend-alkali">IA</td>
+        <td class="group-header bg-legend-alkaline">IIA</td>
+        <td class="group-header bg-legend-transition">IIIB</td>
+        <td class="group-header bg-legend-transition">IVB</td>
+        <td class="group-header bg-legend-transition">VB</td>
+        <td class="group-header bg-legend-transition">VIB</td>
+        <td class="group-header bg-legend-transition">VIIB</td>
+        <td class="group-header bg-legend-transition" colspan="3">VIII</td>
+        <td class="group-header bg-legend-transition">IB</td>
+        <td class="group-header bg-legend-transition">IIB</td>
+        <td class="group-header bg-legend-main">IIIA</td>
+        <td class="group-header bg-legend-main">IVA</td>
+        <td class="group-header bg-legend-main">VA</td>
+        <td class="group-header bg-legend-nonmetal">VIA</td>
+        <td class="group-header bg-legend-halogen">VIIA</td>
+        <td class="group-header bg-legend-noble">0</td>
+        <td class="text-center text-xs p-1">O</td>
+        <td class="text-center text-xs p-1">18</td>
+      </tr>
+      
+      <!-- 第五周期 - 元素 -->
+      <tr>
+        <td class="period-header"></td>
+        <!-- 37 Rb -->
+        <td class="element-cell bg-alkali">
+          <div class="text-right">37</div>
+          <div class="font-bold">Rb</div>
+          <div>铷</div>
+          <div class="text-xs">85.47</div>
+        </td>
+        <!-- 38 Sr -->
+        <td class="element-cell bg-alkaline">
+          <div class="text-right">38</div>
+          <div class="font-bold">Sr</div>
+          <div>锶</div>
+          <div class="text-xs">87.62</div>
+        </td>
+        <!-- 39 Y -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">39</div>
+          <div class="font-bold">Y</div>
+          <div>钇</div>
+          <div class="text-xs">88.91</div>
+        </td>
+        <!-- 40 Zr -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">40</div>
+          <div class="font-bold">Zr</div>
+          <div>锆</div>
+          <div class="text-xs">91.22</div>
+        </td>
+        <!-- 41 Nb -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">41</div>
+          <div class="font-bold">Nb</div>
+          <div>铌</div>
+          <div class="text-xs">92.91</div>
+        </td>
+        <!-- 42 Mo -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">42</div>
+          <div class="font-bold">Mo</div>
+          <div>钼</div>
+          <div class="text-xs">95.94</div>
+        </td>
+        <!-- 43 Tc -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">43</div>
+          <div class="font-bold radioactive">Tc</div>
+          <div class="radioactive">锝</div>
+          <div class="text-xs">(98)</div>
+        </td>
+        <!-- 44 Ru -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">44</div>
+          <div class="font-bold">Ru</div>
+          <div>钌</div>
+          <div class="text-xs">101.1</div>
+        </td>
+        <!-- 45 Rh -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">45</div>
+          <div class="font-bold">Rh</div>
+          <div>铑</div>
+          <div class="text-xs">102.9</div>
+        </td>
+        <!-- 46 Pd -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">46</div>
+          <div class="font-bold">Pd</div>
+          <div>钯</div>
+          <div class="text-xs">106.4</div>
+        </td>
+        <!-- 47 Ag -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">47</div>
+          <div class="font-bold">Ag</div>
+          <div>银</div>
+          <div class="text-xs">107.9</div>
+        </td>
+        <!-- 48 Cd -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">48</div>
+          <div class="font-bold">Cd</div>
+          <div>镉</div>
+          <div class="text-xs">112.4</div>
+        </td>
+        <!-- 49 In -->
+        <td class="element-cell bg-main-group">
+          <div class="text-right">49</div>
+          <div class="font-bold">In</div>
+          <div>铟</div>
+          <div class="text-xs">114.8</div>
+        </td>
+        <!-- 50 Sn -->
+        <td class="element-cell bg-main-group">
+          <div class="text-right">50</div>
+          <div class="font-bold">Sn</div>
+          <div>锡</div>
+          <div class="text-xs">118.7</div>
+        </td>
+        <!-- 51 Sb -->
+        <td class="element-cell bg-main-group">
+          <div class="text-right">51</div>
+          <div class="font-bold">Sb</div>
+          <div>锑</div>
+          <div class="text-xs">121.8</div>
+        </td>
+        <!-- 52 Te -->
+        <td class="element-cell bg-metalloid">
+          <div class="text-right">52</div>
+          <div class="font-bold">Te</div>
+          <div>碲</div>
+          <div class="text-xs">127.6</div>
+        </td>
+        <!-- 53 I -->
+        <td class="element-cell bg-halogen">
+          <div class="text-right">53</div>
+          <div class="font-bold">I</div>
+          <div>碘</div>
+          <div class="text-xs">126.9</div>
+        </td>
+        <!-- 54 Xe -->
+        <td class="element-cell bg-noble">
+          <div class="text-right">54</div>
+          <div class="font-bold">Xe</div>
+          <div>氙</div>
+          <div class="text-xs">131.3</div>
+        </td>
+        <td class="text-center text-xs p-1">N</td>
+        <td class="text-center text-xs p-1">8</td>
+      </tr>
+      
+      <!-- 第六周期 - 族标题 -->
+      <tr>
+        <td class="period-header">6</td>
+        <td class="group-header bg-legend-alkali">IA</td>
+        <td class="group-header bg-legend-alkaline">IIA</td>
+        <td class="group-header bg-legend-transition">IIIB</td>
+        <td class="group-header bg-legend-transition">IVB</td>
+        <td class="group-header bg-legend-transition">VB</td>
+        <td class="group-header bg-legend-transition">VIB</td>
+        <td class="group-header bg-legend-transition">VIIB</td>
+        <td class="group-header bg-legend-transition" colspan="3">VIII</td>
+        <td class="group-header bg-legend-transition">IB</td>
+        <td class="group-header bg-legend-transition">IIB</td>
+        <td class="group-header bg-legend-main">IIIA</td>
+        <td class="group-header bg-legend-main">IVA</td>
+        <td class="group-header bg-legend-main">VA</td>
+        <td class="group-header bg-legend-nonmetal">VIA</td>
+        <td class="group-header bg-legend-halogen">VIIA</td>
+        <td class="group-header bg-legend-noble">0</td>
+        <td class="text-center text-xs p-1">P</td>
+        <td class="text-center text-xs p-1">32</td>
+      </tr>
+      
+      <!-- 第六周期 - 元素 -->
+      <tr>
+        <td class="period-header"></td>
+        <!-- 55 Cs -->
+        <td class="element-cell bg-alkali">
+          <div class="text-right">55</div>
+          <div class="font-bold">Cs</div>
+          <div>铯</div>
+          <div class="text-xs">132.9</div>
+        </td>
+        <!-- 56 Ba -->
+        <td class="element-cell bg-alkaline">
+          <div class="text-right">56</div>
+          <div class="font-bold">Ba</div>
+          <div>钡</div>
+          <div class="text-xs">137.3</div>
+        </td>
+        <!-- 57-71 La-Lu 镧系 -->
+        <td class="element-cell bg-lanthanide" colspan="1">
+          <div class="text-right">57-71</div>
+          <div class="font-bold">La-Lu</div>
+          <div>镧系</div>
+          <div class="text-xs">138.9-175.0</div>
+        </td>
+        <!-- 72 Hf -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">72</div>
+          <div class="font-bold">Hf</div>
+          <div>铪</div>
+          <div class="text-xs">178.5</div>
+        </td>
+        <!-- 73 Ta -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">73</div>
+          <div class="font-bold">Ta</div>
+          <div>钽</div>
+          <div class="text-xs">180.9</div>
+        </td>
+        <!-- 74 W -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">74</div>
+          <div class="font-bold">W</div>
+          <div>钨</div>
+          <div class="text-xs">183.8</div>
+        </td>
+        <!-- 75 Re -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">75</div>
+          <div class="font-bold">Re</div>
+          <div>铼</div>
+          <div class="text-xs">186.2</div>
+        </td>
+        <!-- 76 Os -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">76</div>
+          <div class="font-bold">Os</div>
+          <div>锇</div>
+          <div class="text-xs">190.2</div>
+        </td>
+        <!-- 77 Ir -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">77</div>
+          <div class="font-bold">Ir</div>
+          <div>铱</div>
+          <div class="text-xs">192.2</div>
+        </td>
+        <!-- 78 Pt -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">78</div>
+          <div class="font-bold">Pt</div>
+          <div>铂</div>
+          <div class="text-xs">195.1</div>
+        </td>
+        <!-- 79 Au -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">79</div>
+          <div class="font-bold">Au</div>
+          <div>金</div>
+          <div class="text-xs">197.0</div>
+        </td>
+        <!-- 80 Hg -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">80</div>
+          <div class="font-bold">Hg</div>
+          <div>汞</div>
+          <div class="text-xs">200.6</div>
+        </td>
+        <!-- 81 Tl -->
+        <td class="element-cell bg-main-group">
+          <div class="text-right">81</div>
+          <div class="font-bold">Tl</div>
+          <div>铊</div>
+          <div class="text-xs">204.4</div>
+        </td>
+        <!-- 82 Pb -->
+        <td class="element-cell bg-main-group">
+          <div class="text-right">82</div>
+          <div class="font-bold">Pb</div>
+          <div>铅</div>
+          <div class="text-xs">207.2</div>
+        </td>
+        <!-- 83 Bi -->
+        <td class="element-cell bg-main-group">
+          <div class="text-right">83</div>
+          <div class="font-bold">Bi</div>
+          <div>铋</div>
+          <div class="text-xs">209.0</div>
+        </td>
+        <!-- 84 Po -->
+        <td class="element-cell bg-main-group">
+          <div class="text-right">84</div>
+          <div class="font-bold radioactive">Po</div>
+          <div class="radioactive">钋</div>
+          <div class="text-xs">[209]</div>
+        </td>
+        <!-- 85 At -->
+        <td class="element-cell bg-halogen">
+          <div class="text-right">85</div>
+          <div class="font-bold radioactive">At</div>
+          <div class="radioactive">砹</div>
+          <div class="text-xs">[210]</div>
+        </td>
+        <!-- 86 Rn -->
+        <td class="element-cell bg-noble">
+          <div class="text-right">86</div>
+          <div class="font-bold radioactive">Rn</div>
+          <div class="radioactive">氡</div>
+          <div class="text-xs">[222]</div>
+        </td>
+        <td class="text-center text-xs p-1">O</td>
+        <td class="text-center text-xs p-1">18</td>
+      </tr>
+      
+      <!-- 第七周期 - 族标题 -->
+      <tr>
+        <td class="period-header">7</td>
+        <td class="group-header bg-legend-alkali">IA</td>
+        <td class="group-header bg-legend-alkaline">IIA</td>
+        <td class="group-header bg-legend-transition">IIIB</td>
+        <td class="group-header bg-legend-transition">IVB</td>
+        <td class="group-header bg-legend-transition">VB</td>
+        <td class="group-header bg-legend-transition">VIB</td>
+        <td class="group-header bg-legend-transition">VIIB</td>
+        <td class="group-header bg-legend-transition" colspan="3">VIII</td>
+        <td class="group-header bg-legend-transition">IB</td>
+        <td class="group-header bg-legend-transition">IIB</td>
+        <td class="group-header bg-legend-main">IIIA</td>
+        <td class="group-header bg-legend-main">IVA</td>
+        <td class="group-header bg-legend-main">VA</td>
+        <td class="group-header bg-legend-nonmetal">VIA</td>
+        <td class="group-header bg-legend-halogen">VIIA</td>
+        <td class="group-header bg-legend-noble">0</td>
+        <td class="text-center text-xs p-1">Q</td>
+        <td class="text-center text-xs p-1">18</td>
+      </tr>
+      
+      <!-- 第七周期 - 元素 -->
+      <tr>
+        <td class="period-header"></td>
+        <!-- 87 Fr -->
+        <td class="element-cell bg-alkali">
+          <div class="text-right">87</div>
+          <div class="font-bold radioactive">Fr</div>
+          <div class="radioactive">钫</div>
+          <div class="text-xs">[223]</div>
+        </td>
+        <!-- 88 Ra -->
+        <td class="element-cell bg-alkaline">
+          <div class="text-right">88</div>
+          <div class="font-bold radioactive">Ra</div>
+          <div class="radioactive">镭</div>
+          <div class="text-xs">[226]</div>
+        </td>
+        <!-- 89-103 Ac-Lr 锕系 -->
+        <td class="element-cell bg-actinide" colspan="1">
+          <div class="text-right">89-103</div>
+          <div class="font-bold">Ac-Lr</div>
+          <div>锕系</div>
+          <div class="text-xs">227-260</div>
+        </td>
+        <!-- 104 Rf -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">104</div>
+          <div class="font-bold">Rf*</div>
+          <div>𬬻*</div>
+          <div class="text-xs">[261]</div>
+        </td>
+        <!-- 105 Db -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">105</div>
+          <div class="font-bold">Db*</div>
+          <div>𬭊*</div>
+          <div class="text-xs">[262]</div>
+        </td>
+        <!-- 106 Sg -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">106</div>
+          <div class="font-bold">Sg*</div>
+          <div>𬭳*</div>
+          <div class="text-xs">[266]</div>
+        </td>
+        <!-- 107 Bh -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">107</div>
+          <div class="font-bold">Bh*</div>
+          <div>𬭛*</div>
+          <div class="text-xs">[264]</div>
+        </td>
+        <!-- 108 Hs -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">108</div>
+          <div class="font-bold">Hs*</div>
+          <div>𬭶*</div>
+          <div class="text-xs">[277]</div>
+        </td>
+        <!-- 109 Mt -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">109</div>
+          <div class="font-bold">Mt*</div>
+          <div>鿏*</div>
+          <div class="text-xs">[268]</div>
+        </td>
+        <!-- 110 Ds -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">110</div>
+          <div class="font-bold">Ds*</div>
+          <div>𫟼*</div>
+          <div class="text-xs">[281]</div>
+        </td>
+        <!-- 111 Rg -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">111</div>
+          <div class="font-bold">Rg*</div>
+          <div>𬬭*</div>
+          <div class="text-xs">[272]</div>
+        </td>
+        <!-- 112 Cn -->
+        <td class="element-cell bg-transition">
+          <div class="text-right">112</div>
+          <div class="font-bold">Cn*</div>
+          <div>鿔*</div>
+          <div class="text-xs">[285]</div>
+        </td>
+        <!-- 后续元素用省略号表示 -->
+        <td class="element-cell text-center" colspan="6">
+          <div class="text-lg">......</div>
+        </td>
+        <td class="text-center text-xs p-1">N</td>
+        <td class="text-center text-xs p-1">8</td>
+      </tr>
+    </table>
+    
+    <!-- 镧系元素 -->
+    <div class="mb-4">
+      <h2 class="text-lg font-bold mb-2">镧系元素</h2>
+      <table class="border-collapse">
+        <tr>
+          <!-- 57 La -->
+          <td class="element-cell bg-lanthanide">
+            <div class="text-right">57</div>
+            <div class="font-bold">La</div>
+            <div>镧</div>
+            <div class="text-xs">138.9</div>
+          </td>
+          <!-- 58 Ce -->
+          <td class="element-cell bg-lanthanide">
+            <div class="text-right">58</div>
+            <div class="font-bold">Ce</div>
+            <div>铈</div>
+            <div class="text-xs">140.1</div>
+          </td>
+          <!-- 59 Pr -->
+          <td class="element-cell bg-lanthanide">
+            <div class="text-right">59</div>
+            <div class="font-bold">Pr</div>
+            <div>镨</div>
+            <div class="text-xs">140.9</div>
+          </td>
+          <!-- 60 Nd -->
+          <td class="element-cell bg-lanthanide">
+            <div class="text-right">60</div>
+            <div class="font-bold">Nd</div>
+            <div>钕</div>
+            <div class="text-xs">144.2</div>
+          </td>
+          <!-- 61 Pm -->
+          <td class="element-cell bg-lanthanide">
+            <div class="text-right">61</div>
+            <div class="font-bold radioactive">Pm</div>
+            <div class="radioactive">钷</div>
+            <div class="text-xs">[145]</div>
+          </td>
+          <!-- 62 Sm -->
+          <td class="element-cell bg-lanthanide">
+            <div class="text-right">62</div>
+            <div class="font-bold">Sm</div>
+            <div>钐</div>
+            <div class="text-xs">150.4</div>
+          </td>
+          <!-- 63 Eu -->
+          <td class="element-cell bg-lanthanide">
+            <div class="text-right">63</div>
+            <div class="font-bold">Eu</div>
+            <div>铕</div>
+            <div class="text-xs">152.0</div>
+          </td>
+          <!-- 64 Gd -->
+          <td class="element-cell bg-lanthanide">
+            <div class="text-right">64</div>
+            <div class="font-bold">Gd</div>
+            <div>钆</div>
+            <div class="text-xs">157.3</div>
+          </td>
+          <!-- 65 Tb -->
+          <td class="element-cell bg-lanthanide">
+            <div class="text-right">65</div>
+            <div class="font-bold">Tb</div>
+            <div>铽</div>
+            <div class="text-xs">158.9</div>
+          </td>
+          <!-- 66 Dy -->
+          <td class="element-cell bg-lanthanide">
+            <div class="text-right">66</div>
+            <div class="font-bold">Dy</div>
+            <div>镝</div>
+            <div class="text-xs">162.5</div>
+          </td>
+          <!-- 67 Ho -->
+          <td class="element-cell bg-lanthanide">
+            <div class="text-right">67</div>
+            <div class="font-bold">Ho</div>
+            <div>钬</div>
+            <div class="text-xs">164.9</div>
+          </td>
+          <!-- 68 Er -->
+          <td class="element-cell bg-lanthanide">
+            <div class="text-right">68</div>
+            <div class="font-bold">Er</div>
+            <div>铒</div>
+            <div class="text-xs">167.3</div>
+          </td>
+          <!-- 69 Tm -->
+          <td class="element-cell bg-lanthanide">
+            <div class="text-right">69</div>
+            <div class="font-bold">Tm</div>
+            <div>铥</div>
+            <div class="text-xs">168.9</div>
+          </td>
+          <!-- 70 Yb -->
+          <td class="element-cell bg-lanthanide">
+            <div class="text-right">70</div>
+            <div class="font-bold">Yb</div>
+            <div>镱</div>
+            <div class="text-xs">173.0</div>
+          </td>
+          <!-- 71 Lu -->
+          <td class="element-cell bg-lanthanide">
+            <div class="text-right">71</div>
+            <div class="font-bold">Lu</div>
+            <div>镥</div>
+            <div class="text-xs">175.0</div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    
+    <!-- 锕系元素 -->
+    <div class="mb-4">
+      <h2 class="text-lg font-bold mb-2">锕系元素</h2>
+      <table class="border-collapse">
+        <tr>
+          <!-- 89 Ac -->
+          <td class="element-cell bg-actinide">
+            <div class="text-right">89</div>
+            <div class="font-bold radioactive">Ac</div>
+            <div class="radioactive">锕</div>
+            <div class="text-xs">[227]</div>
+          </td>
+          <!-- 90 Th -->
+          <td class="element-cell bg-actinide">
+            <div class="text-right">90</div>
+            <div class="font-bold radioactive">Th</div>
+            <div class="radioactive">钍</div>
+            <div class="text-xs">232.0</div>
+          </td>
+          <!-- 91 Pa -->
+          <td class="element-cell bg-actinide">
+            <div class="text-right">91</div>
+            <div class="font-bold radioactive">Pa</div>
+            <div class="radioactive">镤</div>
+            <div class="text-xs">231.0</div>
+          </td>
+          <!-- 92 U -->
+          <td class="element-cell bg-actinide">
+            <div class="text-right">92</div>
+            <div class="font-bold radioactive">U</div>
+            <div class="radioactive">铀</div>
+            <div class="text-xs">238.0</div>
+          </td>
+          <!-- 93 Np -->
+          <td class="element-cell bg-actinide">
+            <div class="text-right">93</div>
+            <div class="font-bold radioactive">Np</div>
+            <div class="radioactive">镎</div>
+            <div class="text-xs">[237]</div>
+          </td>
+          <!-- 94 Pu -->
+          <td class="element-cell bg-actinide">
+            <div class="text-right">94</div>
+            <div class="font-bold radioactive">Pu</div>
+            <div class="radioactive">钚</div>
+            <div class="text-xs">[244]</div>
+          </td>
+          <!-- 95 Am -->
+          <td class="element-cell bg-actinide">
+            <div class="text-right">95</div>
+            <div class="font-bold radioactive">Am</div>
+            <div class="radioactive">镅</div>
+            <div class="text-xs">[243]</div>
+          </td>
+          <!-- 96 Cm -->
+          <td class="element-cell bg-actinide">
+            <div class="text-right">96</div>
+            <div class="font-bold radioactive">Cm</div>
+            <div class="radioactive">锔</div>
+            <div class="text-xs">[247]</div>
+          </td>
+          <!-- 97 Bk -->
+          <td class="element-cell bg-actinide">
+            <div class="text-right">97</div>
+            <div class="font-bold radioactive">Bk</div>
+            <div class="radioactive">锫</div>
+            <div class="text-xs">[247]</div>
+          </td>
+          <!-- 98 Cf -->
+          <td class="element-cell bg-actinide">
+            <div class="text-right">98</div>
+            <div class="font-bold radioactive">Cf</div>
+            <div class="radioactive">锎</div>
+            <div class="text-xs">[251]</div>
+          </td>
+          <!-- 99 Es -->
+          <td class="element-cell bg-actinide">
+            <div class="text-right">99</div>
+            <div class="font-bold radioactive">Es</div>
+            <div class="radioactive">锿</div>
+            <div class="text-xs">[252]</div>
+          </td>
+          <!-- 100 Fm -->
+          <td class="element-cell bg-actinide">
+            <div class="text-right">100</div>
+            <div class="font-bold radioactive">Fm</div>
+            <div class="radioactive">镄</div>
+            <div class="text-xs">[257]</div>
+          </td>
+          <!-- 101 Md -->
+          <td class="element-cell bg-actinide">
+            <div class="text-right">101</div>
+            <div class="font-bold radioactive">Md</div>
+            <div class="radioactive">钔</div>
+            <div class="text-xs">[258]</div>
+          </td>
+          <!-- 102 No -->
+          <td class="element-cell bg-actinide">
+            <div class="text-right">102</div>
+            <div class="font-bold radioactive">No</div>
+            <div class="radioactive">锘</div>
+            <div class="text-xs">[259]</div>
+          </td>
+          <!-- 103 Lr -->
+          <td class="element-cell bg-actinide">
+            <div class="text-right">103</div>
+            <div class="font-bold radioactive">Lr</div>
+            <div class="radioactive">铹</div>
+            <div class="text-xs">[262]</div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    
+    <!-- 注释 -->
+    <div class="text-xs text-gray-600 mt-4">
+      <p>注：相对原子质量录自2001年国际原子量表，并全部取4位有效数字。</p>
+      <p>人民教育出版社化学室</p>
+    </div>
+  </div>
+
+  <!-- 交互效果 -->
+  <script>
+    // 为元素单元格添加悬停效果
+    document.querySelectorAll('.element-cell').forEach(cell => {
+      cell.addEventListener('mouseenter', () => {
+        cell.style.transform = 'scale(1.1)';
+        cell.style.zIndex = '10';
+        cell.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+        cell.style.transition = 'all 0.2s ease';
+      });
+      
+      cell.addEventListener('mouseleave', () => {
+        cell.style.transform = 'scale(1)';
+        cell.style.zIndex = '1';
+        cell.style.boxShadow = 'none';
+      });
+    });
+  </script>
+</body>
+</html>
