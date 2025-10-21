@@ -1423,79 +1423,115 @@
     </div>
   </div>
 
-  <!-- 翻页特效脚本 -->
+  <!-- 翻页特效脚本 - 性能优化版本 -->
   <script>
     class PeriodicTableBook {
       constructor() {
         this.currentPage = 0; // 0表示封面，1开始是内容页
         this.totalPages = 119; // 封面 + 118页内容
-        
         this.bookContainer = document.getElementById('bookContainer');
+        this.pageCache = new Map(); // 页面缓存
+        this.originalHTML = ''; // 原始HTML内容
         
         this.init();
       }
       
       init() {
-        this.createPages();
+        this.loadOriginalContent();
+        this.createCoverPage();
         this.setupEventListeners();
-        this.updateControls();
+        this.showPage(this.currentPage);
       }
       
-      createPages() {
-        // 创建封面页面
-        this.createCoverPage();
-        
-        // 获取原始元素周期表内容
+      loadOriginalContent() {
         const originalContent = document.getElementById('originalPeriodicTable');
-        const originalHTML = originalContent ? originalContent.outerHTML : this.getDefaultPeriodicTable();
+        if (originalContent) {
+          this.originalHTML = originalContent.outerHTML;
+          originalContent.remove(); // 移除原始内容
+        } else {
+          this.originalHTML = this.getDefaultPeriodicTable();
+        }
+      }
+      
+      createCoverPage() {
+        const coverPage = document.createElement('div');
+        coverPage.className = 'page cover-page active';
+        coverPage.id = 'page-0';
         
-        // 创建内容页面（从1开始）
-        for (let i = 1; i <= 118; i++) {
-          const page = document.createElement('div');
-          page.className = 'page';
-          page.id = `page-${i}`;
-          
-          const pageContent = document.createElement('div');
-          pageContent.className = 'page-content';
-          pageContent.innerHTML = originalHTML;
-          
-          // 更新页面标题中的页码
-          const titleElement = pageContent.querySelector('h1');
-          if (titleElement) {
-            titleElement.innerHTML = `元素周期表 <span class="text-lg text-gray-600">(第 ${i} 页)</span>`;
-          }
-          
-          // 为元素单元格添加悬停效果
-          pageContent.querySelectorAll('.element-cell').forEach(cell => {
-            cell.addEventListener('mouseenter', () => {
-              cell.style.transform = 'scale(1.1)';
-              cell.style.zIndex = '10';
-              cell.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
-              cell.style.transition = 'all 0.2s ease';
-            });
-            
-            cell.addEventListener('mouseleave', () => {
-              cell.style.transform = 'scale(1)';
-              cell.style.zIndex = '1';
-              cell.style.boxShadow = 'none';
-            });
+        const coverContent = document.createElement('div');
+        coverContent.className = 'cover-content';
+        coverContent.innerHTML = `
+          <div class="cover-title">
+            <h1 class="main-title">千万别惹化学老师之----</h1>
+            <h2 class="subtitle">罚抄元素周期表</h2>
+          </div>
+          <div class="cover-signature">
+            <p class="signature">秀秀老师我错啦</p>
+          </div>
+          <div class="cover-instruction">
+            <p class="instruction">点击屏幕任意位置开始翻页</p>
+          </div>
+        `;
+        
+        coverPage.appendChild(coverContent);
+        this.bookContainer.appendChild(coverPage);
+        
+        // 缓存封面页面
+        this.pageCache.set(0, coverPage);
+      }
+      
+      getPageContent(pageNumber) {
+        if (pageNumber === 0) {
+          return this.pageCache.get(0).cloneNode(true);
+        }
+        
+        // 如果页面已缓存，直接返回
+        if (this.pageCache.has(pageNumber)) {
+          return this.pageCache.get(pageNumber).cloneNode(true);
+        }
+        
+        // 创建新页面
+        const page = document.createElement('div');
+        page.className = 'page';
+        page.id = `page-${pageNumber}`;
+        
+        const pageContent = document.createElement('div');
+        pageContent.className = 'page-content';
+        pageContent.innerHTML = this.originalHTML;
+        
+        // 更新页面标题中的页码
+        const titleElement = pageContent.querySelector('h1');
+        if (titleElement) {
+          titleElement.innerHTML = `元素周期表 <span class="text-lg text-gray-600">(第 ${pageNumber} 页)</span>`;
+        }
+        
+        // 为元素单元格添加悬停效果
+        pageContent.querySelectorAll('.element-cell').forEach(cell => {
+          cell.addEventListener('mouseenter', () => {
+            cell.style.transform = 'scale(1.1)';
+            cell.style.zIndex = '10';
+            cell.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+            cell.style.transition = 'all 0.2s ease';
           });
           
-          const pageNumber = document.createElement('div');
-          pageNumber.className = 'page-number';
-          pageNumber.textContent = `第 ${i} 页 / 共 118 页`;
-          
-          page.appendChild(pageContent);
-          page.appendChild(pageNumber);
-          this.bookContainer.appendChild(page);
-        }
+          cell.addEventListener('mouseleave', () => {
+            cell.style.transform = 'scale(1)';
+            cell.style.zIndex = '1';
+            cell.style.boxShadow = 'none';
+          });
+        });
         
-        // 移除原始内容
-        if (originalContent) {
-          originalContent.remove();
-        }
+        const pageNumberElement = document.createElement('div');
+        pageNumberElement.className = 'page-number';
+        pageNumberElement.textContent = `第 ${pageNumber} 页 / 共 118 页`;
         
-        this.showPage(this.currentPage);
+        page.appendChild(pageContent);
+        page.appendChild(pageNumberElement);
+        
+        // 缓存页面
+        this.pageCache.set(pageNumber, page.cloneNode(true));
+        
+        return page;
       }
       
       createCoverPage() {
@@ -1531,6 +1567,36 @@
             <!-- 完整的元素周期表内容将在这里显示 -->
           </div>
         `;
+      }
+      
+      // 清理不需要的页面，只保留当前页和相邻页
+      cleanupPages() {
+        const pagesToKeep = new Set();
+        
+        // 保留当前页和相邻页
+        for (let i = Math.max(0, this.currentPage - 1); i <= Math.min(this.totalPages - 1, this.currentPage + 1); i++) {
+          pagesToKeep.add(i);
+        }
+        
+        // 清理DOM中不需要的页面
+        document.querySelectorAll('.page').forEach(page => {
+          const pageId = parseInt(page.id.replace('page-', ''));
+          if (!pagesToKeep.has(pageId) && pageId !== this.currentPage) {
+            page.remove();
+          }
+        });
+      }
+      
+      // 预加载相邻页面
+      preloadAdjacentPages() {
+        const preloadRange = 1; // 预加载前后各1页
+        
+        for (let i = Math.max(1, this.currentPage - preloadRange); i <= Math.min(118, this.currentPage + preloadRange); i++) {
+          if (!this.pageCache.has(i) && !document.getElementById(`page-${i}`)) {
+            // 预加载页面但不添加到DOM
+            this.getPageContent(i);
+          }
+        }
       }
       
       setupEventListeners() {
@@ -1586,35 +1652,70 @@
       }
       
       showPage(pageNumber) {
-        // 隐藏所有页面
-        document.querySelectorAll('.page').forEach(page => {
-          page.classList.remove('active', 'prev', 'next');
-        });
+        // 防止页面超出范围
+        pageNumber = Math.max(0, Math.min(this.totalPages - 1, pageNumber));
         
-        // 显示当前页面
-        const currentPage = document.getElementById(`page-${pageNumber}`);
-        if (currentPage) {
-          currentPage.classList.add('active');
+        // 清理不需要的页面
+        this.cleanupPages();
+        
+        // 获取或创建当前页面
+        let currentPage = document.getElementById(`page-${pageNumber}`);
+        if (!currentPage) {
+          currentPage = this.getPageContent(pageNumber);
+          this.bookContainer.appendChild(currentPage);
         }
         
-        // 显示前一页（如果有）
+        // 获取或创建前一页
         if (pageNumber > 0) {
-          const prevPage = document.getElementById(`page-${pageNumber - 1}`);
-          if (prevPage) {
-            prevPage.classList.add('prev');
+          let prevPage = document.getElementById(`page-${pageNumber - 1}`);
+          if (!prevPage) {
+            prevPage = this.getPageContent(pageNumber - 1);
+            this.bookContainer.appendChild(prevPage);
           }
+          prevPage.classList.remove('active', 'prev', 'next');
+          prevPage.classList.add('prev');
         }
         
-        // 显示后一页（如果有）
+        // 获取或创建后一页
         if (pageNumber < this.totalPages - 1) {
-          const nextPage = document.getElementById(`page-${pageNumber + 1}`);
-          if (nextPage) {
-            nextPage.classList.add('next');
+          let nextPage = document.getElementById(`page-${pageNumber + 1}`);
+          if (!nextPage) {
+            nextPage = this.getPageContent(pageNumber + 1);
+            this.bookContainer.appendChild(nextPage);
           }
+          nextPage.classList.remove('active', 'prev', 'next');
+          nextPage.classList.add('next');
         }
+        
+        // 设置当前页面状态
+        currentPage.classList.remove('active', 'prev', 'next');
+        currentPage.classList.add('active');
         
         this.currentPage = pageNumber;
-        this.updateControls();
+        
+        // 预加载相邻页面
+        setTimeout(() => {
+          this.preloadAdjacentPages();
+        }, 100);
+        
+        // 移动端优化：强制重绘避免白屏
+        if (this.isMobileDevice()) {
+          this.forceRepaint();
+        }
+      }
+      
+      isMobileDevice() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      }
+      
+      forceRepaint() {
+        // 强制重绘避免移动端白屏
+        const element = document.querySelector('.book-container');
+        if (element) {
+          element.style.display = 'none';
+          element.offsetHeight; // 触发重排
+          element.style.display = '';
+        }
       }
       
       nextPage() {
